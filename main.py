@@ -2,6 +2,8 @@
 import os
 import pygame
 
+pygame.font.init()
+
 # Setting Global Parameters
 WIDTH, HEIGHT = 800, 675
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -12,8 +14,10 @@ BAR_WIDTH = 25
 CIRCLE_WIDTH = 35
 LINE_WIDTH = 10
 
+FONT = pygame.font.SysFont("comicsans", 75)
 
-def draw(w_circle: int, bar1, bar2, line, circle_x, circle_y):
+
+def draw(w_circle: int, bar1, bar2, line, circle_x, circle_y, score1, score2):
     # Clear the screen
     WIN.fill((0, 0, 0))
 
@@ -26,6 +30,12 @@ def draw(w_circle: int, bar1, bar2, line, circle_x, circle_y):
 
     # Draw Line in the Middle (Separation Line)
     pygame.draw.rect(WIN, "white", line)
+
+    # Display Scores
+    score1_label = FONT.render(str(score1), 1, "white")
+    score2_label = FONT.render(str(score2), 1, "white")
+    WIN.blit(score1_label, (WIDTH/4-score1_label.get_width()/2, 50))
+    WIN.blit(score2_label, (WIDTH/4*3-score2_label.get_width()/2, 50))
 
     # Update the Display
     pygame.display.update()
@@ -40,6 +50,9 @@ def main():
     ball_vel_x = 2
     ball_vel_y = 2
     bar_vel = 5
+
+    score1 = 0
+    score2 = 0
 
     line = pygame.Rect(int(WIDTH / 2 - LINE_WIDTH / 2), 0, LINE_WIDTH, HEIGHT)
     bar1 = pygame.Rect(10, circle_y, BAR_WIDTH, BAR_HEIGHT)
@@ -65,7 +78,7 @@ def main():
             if not(bar2.y-bar_vel <= 0):
                 bar2.y -= bar_vel
 
-        draw(CIRCLE_WIDTH, bar1, bar2, line, circle_x, circle_y)
+        draw(CIRCLE_WIDTH, bar1, bar2, line, circle_x, circle_y, score1, score2)
 
         # Check collision with bars
         if bar1.colliderect(
@@ -77,6 +90,7 @@ def main():
             )
         ):
             ball_vel_x = -ball_vel_x
+            score1 += 1
         if bar2.colliderect(
             pygame.Rect(
                 circle_x - CIRCLE_WIDTH,
@@ -86,6 +100,7 @@ def main():
             )
         ):
             ball_vel_x = -ball_vel_x
+            score2 += 1
 
         if circle_x >= WIDTH - CIRCLE_WIDTH or circle_x <= CIRCLE_WIDTH:
             ball_vel_x = -ball_vel_x
