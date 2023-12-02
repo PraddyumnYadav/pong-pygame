@@ -15,6 +15,7 @@ CIRCLE_WIDTH = 35
 LINE_WIDTH = 10
 
 FONT = pygame.font.SysFont("comicsans", 75)
+OVER_FONT = pygame.font.SysFont("comicsans", 150)
 
 
 def draw(w_circle: int, bar1, bar2, line, circle_x, circle_y, score1, score2):
@@ -102,8 +103,6 @@ def main():
             ball_vel_x = -ball_vel_x
             score2 += 1
 
-        if circle_x >= WIDTH - CIRCLE_WIDTH or circle_x <= CIRCLE_WIDTH:
-            ball_vel_x = -ball_vel_x
         if circle_y >= HEIGHT - CIRCLE_WIDTH or circle_y <= CIRCLE_WIDTH:
             ball_vel_y = -ball_vel_y
 
@@ -112,6 +111,13 @@ def main():
 
         if not(circle_y+BAR_HEIGHT/2+10 >= HEIGHT) and not(circle_y-BAR_HEIGHT/2-10 <= 0):
             bar1.y = circle_y - int(BAR_HEIGHT / 2)
+
+        if circle_x >= WIDTH - CIRCLE_WIDTH or circle_x <= CIRCLE_WIDTH:
+            over_label = OVER_FONT.render("Game Over:)", 1, "red")
+            WIN.blit(over_label, (WIDTH/2-over_label.get_width()/2, HEIGHT/2-over_label.get_height()/2))
+            pygame.display.update()
+            pygame.time.delay(5000)
+            run = False
 
         clock.tick(60)
 
