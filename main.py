@@ -35,8 +35,8 @@ def draw(w_circle: int, bar1, bar2, line, circle_x, circle_y, score1, score2):
     # Display Scores
     score1_label = FONT.render(str(score1), 1, "white")
     score2_label = FONT.render(str(score2), 1, "white")
-    WIN.blit(score1_label, (WIDTH/4-score1_label.get_width()/2, 50))
-    WIN.blit(score2_label, (WIDTH/4*3-score2_label.get_width()/2, 50))
+    WIN.blit(score1_label, (WIDTH / 4 - score1_label.get_width() / 2, 50))
+    WIN.blit(score2_label, (WIDTH / 4 * 3 - score2_label.get_width() / 2, 50))
 
     # Update the Display
     pygame.display.update()
@@ -73,10 +73,10 @@ def main():
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_DOWN]:
-            if not(bar2.y+bar_vel+BAR_HEIGHT+10 >= HEIGHT):
+            if not (bar2.y + bar_vel + BAR_HEIGHT + 10 >= HEIGHT):
                 bar2.y += bar_vel
         if keys[pygame.K_UP]:
-            if not(bar2.y-bar_vel <= 0):
+            if not (bar2.y - bar_vel <= 0):
                 bar2.y -= bar_vel
 
         draw(CIRCLE_WIDTH, bar1, bar2, line, circle_x, circle_y, score1, score2)
@@ -109,12 +109,20 @@ def main():
         circle_x += ball_vel_x
         circle_y += ball_vel_y
 
-        if not(circle_y+BAR_HEIGHT/2+10 >= HEIGHT) and not(circle_y-BAR_HEIGHT/2-10 <= 0):
+        if not (circle_y + BAR_HEIGHT / 2 + 10 >= HEIGHT) and not (
+            circle_y - BAR_HEIGHT / 2 - 10 <= 0
+        ):
             bar1.y = circle_y - int(BAR_HEIGHT / 2)
 
         if circle_x >= WIDTH - CIRCLE_WIDTH or circle_x <= CIRCLE_WIDTH:
             over_label = OVER_FONT.render("Game Over:)", 1, "red")
-            WIN.blit(over_label, (WIDTH/2-over_label.get_width()/2, HEIGHT/2-over_label.get_height()/2))
+            WIN.blit(
+                over_label,
+                (
+                    WIDTH / 2 - over_label.get_width() / 2,
+                    HEIGHT / 2 - over_label.get_height() / 2,
+                ),
+            )
             pygame.display.update()
             pygame.time.delay(5000)
             run = False
