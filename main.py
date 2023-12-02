@@ -59,9 +59,11 @@ def main():
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_DOWN]:
-            bar2.y += bar_vel
+            if not(bar2.y+bar_vel+BAR_HEIGHT+10 >= HEIGHT):
+                bar2.y += bar_vel
         if keys[pygame.K_UP]:
-            bar2.y -= bar_vel
+            if not(bar2.y-bar_vel <= 0):
+                bar2.y -= bar_vel
 
         draw(CIRCLE_WIDTH, bar1, bar2, line, circle_x, circle_y)
 
@@ -93,7 +95,8 @@ def main():
         circle_x += ball_vel_x
         circle_y += ball_vel_y
 
-        bar1.y = circle_y - int(BAR_HEIGHT / 2)
+        if not(circle_y+BAR_HEIGHT/2+10 >= HEIGHT) and not(circle_y-BAR_HEIGHT/2-10 <= 0):
+            bar1.y = circle_y - int(BAR_HEIGHT / 2)
 
         clock.tick(60)
 
