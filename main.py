@@ -48,8 +48,8 @@ def main():
     circle_x = int(WIDTH / 2)
     circle_y = int(HEIGHT / 2)
 
-    ball_vel_x = 2
-    ball_vel_y = 2
+    ball_vel_x = 4
+    ball_vel_y = 4
     bar_vel = 5
 
     score1 = 0
@@ -67,6 +67,16 @@ def main():
     clock = pygame.time.Clock()
 
     while run:
+        bar_vel += 0.5/60
+        if ball_vel_x > 0:
+            ball_vel_x += 0.5/60
+        else:
+            ball_vel_x -= 0.5/60
+
+        if ball_vel_y > 0:
+            ball_vel_y += 0.5/60
+        else:
+            ball_vel_y -= 0.5/60
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
