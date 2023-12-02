@@ -57,6 +57,12 @@ def main():
 			if event.type == pygame.QUIT:
 				run = False
 
+		keys = pygame.key.get_pressed()
+		if keys[pygame.K_DOWN]:
+			bar2.y += bar_vel
+		if keys[pygame.K_UP]:
+			bar2.y -= bar_vel
+
 		draw(CIRCLE_WIDTH, bar1, bar2, line, circle_x, circle_y)
 
 		if circle_x >= WIDTH - CIRCLE_WIDTH or circle_x <= CIRCLE_WIDTH:
