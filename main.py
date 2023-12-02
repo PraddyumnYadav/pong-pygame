@@ -13,9 +13,9 @@ CIRCLE_WIDTH = 35
 LINE_WIDTH = 10
 
 
-def draw(w_circle: int, bar1, bar2, line):
+def draw(w_circle: int, bar1, bar2, line, circle_x, circle_y):
 	# Draw Circle(Ball)
-	pygame.draw.circle(WIN, "white", (int(WIDTH/2), int(HEIGHT/2)), w_circle)
+	pygame.draw.circle(WIN, "white", (circle_x, circle_y), w_circle)
 
 	# Draw Bars
 	pygame.draw.rect(WIN, "white", bar1)
@@ -30,21 +30,33 @@ def draw(w_circle: int, bar1, bar2, line):
 
 def main():
 	run = True
-	bar1 = pygame.Rect(10, 10, BAR_WIDTH, BAR_HEIGHT)
+
+	circle_x = int(WIDTH/2)
+	circle_y = int(HEIGHT/2)
+
+	ball_vel = 1
+	bar_vel = 5
+
+	line = pygame.Rect(int(WIDTH/2-LINE_WIDTH/2), 0, LINE_WIDTH, HEIGHT)
+	bar1 = pygame.Rect(10, circle_y, BAR_WIDTH, BAR_HEIGHT)
 	bar2 = pygame.Rect(
 		int(WIDTH-BAR_WIDTH-10),
 		int(HEIGHT-BAR_HEIGHT-10),
 		BAR_WIDTH,
 		BAR_HEIGHT
 	)
-	line = pygame.Rect(int(WIDTH/2-LINE_WIDTH/2), 0, LINE_WIDTH, HEIGHT)
 
 	while run:
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				run = False
 
-		draw(CIRCLE_WIDTH, bar1, bar2, line)
+		draw(CIRCLE_WIDTH, bar1, bar2, line, circle_x, circle_y)
+		circle_x += ball_vel
+		circle_y += ball_vel
+
+		bar1.y = circle_y
+
 
 
 if __name__ == "__main__":
