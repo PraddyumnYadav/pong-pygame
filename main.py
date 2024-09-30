@@ -94,7 +94,7 @@ def main():
             if not (bar1.y + bar_vel + BAR_HEIGHT + 10 >= HEIGHT):
                 bar1.y -= bar_vel
         if keys[pygame.K_s]:
-            if not (bar1.y + bar_vel + BAR_HEIGHT + 10 >= HEIGHT):
+            if not (bar1.y - bar_vel <= 0):
                 bar1.y += bar_vel
 
         draw(CIRCLE_WIDTH, bar1, bar2, line, circle_x, circle_y, score1, score2)
