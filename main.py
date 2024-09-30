@@ -67,16 +67,16 @@ def main():
     clock = pygame.time.Clock()
 
     while run:
-        bar_vel += 0.5/60
+        bar_vel += 0.4/60
         if ball_vel_x > 0:
-            ball_vel_x += 0.5/60
+            ball_vel_x += 0.4/60
         else:
-            ball_vel_x -= 0.5/60
+            ball_vel_x -= 0.4/60
 
         if ball_vel_y > 0:
-            ball_vel_y += 0.5/60
+            ball_vel_y += 0.4/60
         else:
-            ball_vel_y -= 0.5/60
+            ball_vel_y -= 0.4/60
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
@@ -88,6 +88,14 @@ def main():
         if keys[pygame.K_UP]:
             if not (bar2.y - bar_vel <= 0):
                 bar2.y -= bar_vel
+
+        # Making the Game Multiplayer
+        if keys[pygame.K_w]:
+            if not (bar1.y + bar_vel + BAR_HEIGHT + 10 >= HEIGHT):
+                bar1.y -= bar_vel
+        if keys[pygame.K_s]:
+            if not (bar1.y + bar_vel + BAR_HEIGHT + 10 >= HEIGHT):
+                bar1.y += bar_vel
 
         draw(CIRCLE_WIDTH, bar1, bar2, line, circle_x, circle_y, score1, score2)
 
@@ -119,10 +127,11 @@ def main():
         circle_x += ball_vel_x
         circle_y += ball_vel_y
 
-        if not (circle_y + BAR_HEIGHT / 2 + 10 >= HEIGHT) and not (
-            circle_y - BAR_HEIGHT / 2 - 10 <= 0
-        ):
-            bar1.y = circle_y - int(BAR_HEIGHT / 2)
+        # Making the Game Single Player
+        # if not (circle_y + BAR_HEIGHT / 2 + 10 >= HEIGHT) and not (
+        #     circle_y - BAR_HEIGHT / 2 - 10 <= 0
+        # ):
+        #     bar1.y = circle_y - int(BAR_HEIGHT / 2)
 
         if circle_x >= WIDTH - CIRCLE_WIDTH or circle_x <= CIRCLE_WIDTH:
             over_label = OVER_FONT.render("Game Over:)", 1, "red")
